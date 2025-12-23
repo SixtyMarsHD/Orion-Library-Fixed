@@ -1,5 +1,3 @@
-
-
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -474,8 +472,8 @@ function OrionLib:MakeWindow(WindowConfig)
 	WindowConfig.ConfigFolder = WindowConfig.ConfigFolder or WindowConfig.Name
 	WindowConfig.SaveConfig = WindowConfig.SaveConfig or false
 	WindowConfig.HidePremium = WindowConfig.HidePremium or false
-	WindowConfig.PremiumColor = WindowConfig.PremiumColor or Color3.fromRGB(150, 150, 150)
-
+	WindowConfig.PremiumText = WindowConfig.PremiumText or ""
+	WindowConfig.PremiumColor = WindowConfig.PremiumColor or OrionLib.Themes.Default.TextDark
 	if WindowConfig.IntroEnabled == nil then
 		WindowConfig.IntroEnabled = true
 	end
@@ -582,7 +580,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				Font = Enum.Font.GothamBold,
 				ClipsDescendants = true
 			}), "Text"),
-			AddThemeObject(SetProps(MakeElement("Label", "test", 12), {
+			AddThemeObject(SetProps(MakeElement("Label", WindowConfig.PremiumText, 12), {
 				Size = UDim2.new(1, -60, 0, 12),
 				Position = UDim2.new(0, 50, 1, -25),
 				TextColor3 = WindowConfig.PremiumColor,
@@ -1713,14 +1711,6 @@ function OrionLib:MakeWindow(WindowConfig)
 		end
 		return ElementFunction   
 	end  
-	
-	OrionLib:MakeNotification({
-		Name = "UI Library Upgrade",
-		Content = "New UI Library Available at sirius.menu/discord and sirius.menu/rayfield",
-		Time = 5
-	})
-	
-
 	
 	return TabFunction
 end   
