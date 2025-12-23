@@ -17,7 +17,8 @@ local OrionLib = {
 			Stroke = Color3.fromRGB(60, 60, 60),
 			Divider = Color3.fromRGB(60, 60, 60),
 			Text = Color3.fromRGB(240, 240, 240),
-			TextDark = Color3.fromRGB(150, 150, 150)
+			TextDark = Color3.fromRGB(150, 150, 150),
+			CustomPremiumColor = Color3.fromRGB(250, 0, 0)
 		}
 	},
 	SelectedTheme = "Default",
@@ -473,7 +474,6 @@ function OrionLib:MakeWindow(WindowConfig)
 	WindowConfig.SaveConfig = WindowConfig.SaveConfig or false
 	WindowConfig.HidePremium = WindowConfig.HidePremium or false
 	WindowConfig.PremiumText = WindowConfig.PremiumText or ""
-	WindowConfig.PremiumColor = WindowConfig.PremiumColor or OrionLib.Themes.Default.TextDark
 	if WindowConfig.IntroEnabled == nil then
 		WindowConfig.IntroEnabled = true
 	end
@@ -583,9 +583,8 @@ function OrionLib:MakeWindow(WindowConfig)
 			AddThemeObject(SetProps(MakeElement("Label", WindowConfig.PremiumText, 12), {
 				Size = UDim2.new(1, -60, 0, 12),
 				Position = UDim2.new(0, 50, 1, -25),
-				TextColor3 = WindowConfig.PremiumColor,
 				Visible = not WindowConfig.HidePremium
-			}), "TextDark")
+			}), "CustomPremiumColor")
 		}),
 	}), "Second")
 
