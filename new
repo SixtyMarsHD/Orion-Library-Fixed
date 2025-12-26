@@ -1399,16 +1399,18 @@ function OrionLib:MakeWindow(WindowConfig)
 					Scroll
 				}), "Main")
 
+				local Content = AddThemeObject(SetProps(MakeElement("Label", TextboxConfig.Name, 15), {
+					Size = UDim2.new(1, -12, 1, 0),
+					Position = UDim2.new(0, 12, 0, 0),
+					Font = Enum.Font.GothamBold,
+					Name = "Content"
+				}), "Text")
+
 				local TextboxFrame = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
 					Size = UDim2.new(1, 0, 0, 38),
 					Parent = ItemParent
 				}), {
-					AddThemeObject(SetProps(MakeElement("Label", TextboxConfig.Name, 15), {
-						Size = UDim2.new(1, -12, 1, 0),
-						Position = UDim2.new(0, 12, 0, 0),
-						Font = Enum.Font.GothamBold,
-						Name = "Content"
-					}), "Text"),
+					Content,
 					AddThemeObject(MakeElement("Stroke"), "Stroke"),
 					TextContainer,
 					Click
@@ -1416,7 +1418,7 @@ function OrionLib:MakeWindow(WindowConfig)
 
 				AddConnection(TextboxActual:GetPropertyChangedSignal("Text"), function()
 					--TextContainer.Size = UDim2.new(0, TextboxActual.TextBounds.X + 16, 0, 24)
-					TweenService:Create(TextContainer, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, math.min(TextboxActual.TextBounds.X + 16, 300), 0, 24)}):Play()
+					TweenService:Create(TextContainer, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, math.min(TextboxActual.TextBounds.X + 16, (445 - (24 + Content.TextBounds + 30))), 0, 24)}):Play()
 				end)
 
 				AddConnection(TextboxActual.FocusLost, function()
