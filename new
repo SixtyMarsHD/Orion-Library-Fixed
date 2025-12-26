@@ -1365,6 +1365,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				TextboxConfig.Name = TextboxConfig.Name or "Textbox"
 				TextboxConfig.Default = TextboxConfig.Default or ""
 				TextboxConfig.TextDisappear = TextboxConfig.TextDisappear or false
+				TextboxConfig.OnlyNumbers = TextboxConfig.OnlyNumbers or false
 				TextboxConfig.Callback = TextboxConfig.Callback or function() end
 
 				local oldText
@@ -1423,21 +1424,31 @@ function OrionLib:MakeWindow(WindowConfig)
 				end)
 
 				AddConnection(TextboxActual.Focused, function()
+    				oldText = TextboxActual.Text
 					if TextboxConfig.TextDisappear then
-    					oldText = TextboxActual.Text
     					TextboxActual.Text = ""
 					end
 				end)
 
 				AddConnection(TextboxActual.FocusLost, function()
-					if TextboxConfig.TextDisappear then
-    					if TextboxActual.Text == "" then
-        					TextboxActual.Text = oldText
-    					else
-        					TextboxConfig.Callback(TextboxActual.Text)
-    					end
-					end
+    				local text = TextboxActual.Text or ""
+
+    				if TextboxConfig.OnlyNumbers and not text:match("^%d+$") then
+        				TextboxActual.Text = oldText
+        				return
+    				end
+
+    				if TextboxConfig.TextDisappear then
+        				if text == "" then
+            				TextboxActual.Text = oldText
+        				else
+            				TextboxConfig.Callback(text)
+        				end
+    				else
+        				TextboxConfig.Callback(text)
+    				end
 				end)
+
 
 				TextboxActual.Text = TextboxConfig.Default
 
