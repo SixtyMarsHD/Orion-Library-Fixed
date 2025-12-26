@@ -1410,7 +1410,6 @@ function OrionLib:MakeWindow(WindowConfig)
 						Name = "Content"
 					}), "Text"),
 					AddThemeObject(MakeElement("Stroke"), "Stroke"),
-					Scroll,
 					Click
 				}), "Second")
 
